@@ -19,9 +19,10 @@ import Login from "./components/auth/Login.jsx";
 import Register from './components/auth/Register.jsx';
 import Dashboard from './components/dashboard/Dashboard.jsx';
 import NotFound from './components/not-found/NotFound.jsx';
-
+import ProgressCalendar from "./components/progress-updates/ProgressCalendar.jsx";
 
 import './App.css';
+
 
 
 
@@ -69,9 +70,9 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/not-found" component={NotFound} />
 
-              <Switch>
+
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              </Switch>
+                <PrivateRoute exact path="/progress_updates" component={ProgressCalendar} />
 
             </div>
             <Footer />

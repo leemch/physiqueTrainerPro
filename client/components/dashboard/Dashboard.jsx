@@ -5,9 +5,10 @@ import { connect } from "react-redux";
 import { getCurrentProfile, getProfileById, deleteAccount } from "../../actions/profileActions";
 import Spinner from "../common/Spinner.jsx";
 import axios from "axios";
+import SearchBox from "./check-in-list/SearchBox.jsx";
+import TextFieldGroup from "../common/TextFieldGroup.jsx"
 
 import './dashboard.css';
-import SideBar from './SideBar.jsx';
 
 class Dashboard extends Component {
 
@@ -54,146 +55,58 @@ class Dashboard extends Component {
 								<div className="container">
 									<div className="row">
 										<div className="col-md-3">
-											<a href="#" className="btn btn-primary btn-block" data-toggle="modal" data-target="#addProgressModal">
-												<i className="fas fa-plus"></i> Add Progress Update
-										</a>
-										</div>
-										<div className="col-md-3">
-											<a href="#" className="btn btn-success btn-block" data-toggle="modal" data-target="#clientListModal">
-												<i className="fas fa-plus"></i> Client List
-										</a>
-										</div>
-										<div className="col-md-3">
-											<a href="#" className="btn btn-warning btn-block" data-toggle="modal" data-target="#inviteClientModal">
-												<i className="fas fa-plus"></i> Invite Client
-										</a>
+											<a href="#" className="btn btn-primary btn-block" data-toggle="modal" data-target="#addPrepModal">
+												<i className="fas fa-plus"></i> Start New Prep Module
+											</a>
 										</div>
 									</div>
 								</div>
 							</section>
 
 
-							<section id="posts">
+							<section id="preps">
+
 								<div className="container">
 									<div className="row">
-										<div className="col-md-9">
-											<div className="card">
-												<div className="card=header">
-													<h4>Latest Posts</h4>
-												</div>
-												<table className="table table-striped">
-													<thead className="thead-dark">
-														<tr>
-															<th>#</th>
-															<th>Title</th>
-															<th>Category</th>
-															<th>Date</th>
-															<th>#</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>2</td>
-															<td>Post two</td>
-															<td>tech gadgets</td>
-															<td>May 10</td>
-															<td>
-																<a href="details.html" className="btn btn-secondary">
-																	<i className="fas fa-angle-double-right"></i> Details
-															</a>
-															</td>
-														</tr>
-														<tr>
-															<td>1</td>
-															<td>Post one</td>
-															<td>Web dev</td>
-															<td>May 10</td>
-															<td>
-																<a href="details.html" className="btn btn-secondary">
-																	<i className="fas fa-angle-double-right"></i> Details
-															</a>
-															</td>
-														</tr>
-														<tr>
-															<td>1</td>
-															<td>Post one</td>
-															<td>Web dev</td>
-															<td>May 10</td>
-															<td>
-																<a href="details.html" className="btn btn-secondary">
-																	<i className="fas fa-angle-double-right"></i> Details
-															</a>
-															</td>
-														</tr>
-														<tr>
-															<td>1</td>
-															<td>Post one</td>
-															<td>Web dev</td>
-															<td>May 10</td>
-															<td>
-																<a href="details.html" className="btn btn-secondary">
-																	<i className="fas fa-angle-double-right"></i> Details
-															</a>
-															</td>
-														</tr>
-														<tr>
-															<td>1</td>
-															<td>Post one</td>
-															<td>Web dev</td>
-															<td>May 10</td>
-															<td>
-																<a href="details.html" className="btn btn-secondary">
-																	<i className="fas fa-angle-double-right"></i> Details
-															</a>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
+										<div className="col-md-12 mt-3">
+											<SearchBox searchChange={this.onSearchChange} searchfield={this.state.searchBox} />
+											<div className="card card-body bg-light mb-3 shadow-lg">
+												<div className="row">
+													<div className="col-md-2 col-sm-12">
+														<img src="https://via.placeholder.com/150" className="rounded-circle" alt="avatar" style={{ "width": "100px" }} />
+													</div>
+													<div className="col-lg-6 col-md-4 col-8">
+														<h3>Lee Mchale</h3>
 
-										<div className="col-md-3">
-											<div className="card text-center bg-primary text-white mb-3">
-												<div className="card-body">
-													<h3>Posts</h3>
-													<h4 className="display-4">
-														<i className="fas fa-pencil-alt"></i> 6
-												</h4>
-													<a href="posts.html" className="btn btn-outline-light btn-sm">View</a>
-												</div>
-											</div>
-											<div className="card text-center bg-success text-white mb-3">
-												<div className="card-body">
-													<h3>Categories</h3>
-													<h4 className="display-4">
-														<i className="fas fa-folder"></i> 4
-												</h4>
-													<a href="categories.html" className="btn btn-outline-light btn-sm">View</a>
-												</div>
-											</div>
-											<div className="card text-center bg-warning text-white mb-3">
-												<div className="card-body">
-													<h3>Users</h3>
-													<h4 className="display-4">
-														<i className="fas fa-users"></i> 4
-												</h4>
-													<a href="users.html" className="btn btn-outline-light btn-sm">View</a>
+														<div>
+															<form className="form-inline">
+																<input value="786fedg98saefuserg" type="text" readonly className="form-control form-control-lg mr-3" />
+																<button className="btn-lg btn-info">
+																	Copy Link
+																</button>
+																<Link to={`/progress_updates`} className="btn-lg btn-info">
+																	View Check Ins
+																</Link>
+															</form>
+															<small className="form-text text-muted">Share this link with your client so they can send their check ins.</small>
+														</div>
+
+													</div>
+
 												</div>
 											</div>
 										</div>
-
-
 									</div>
 								</div>
 
 							</section>
 
 
-							<div className="modal fade" id="addProgressModal">
+							<div className="modal fade" id="addPrepModal">
 								<div className="modal-dialog modal-lg">
 									<div className="modal-content">
 										<div className="modal-header bg-primary text-white">
-											<h5 className="modal-title">Add Post</h5>
+											<h5 className="modal-title">Add Prep Module</h5>
 											<button className="close" data-dismiss="modal">
 												<span>&times;</span>
 											</button>
@@ -201,90 +114,33 @@ class Dashboard extends Component {
 										<div className="modal-body">
 											<form>
 												<div className="form-group">
-													<label for="title">Title</label>
+													<label for="title">Clients Name</label>
 													<input type="text" className="form-control" />
 												</div>
 												<div className="form-group">
-													<label for="category">Category</label>
-													<select className="form-control">
-														<option value="">Web Development</option>
-														<option value="">Tech Gadgets</option>
-														<option value="">Business</option>
-														<option value="">Health & Wellness</option>
-													</select>
+													<label for="category">Start Date</label>{' '}
+													<input type="date" id="startDate" name="startDate" />
 												</div>
 												<div className="form-group">
+													<label for="category">End Date</label>{' '}
+													<input type="date" id="endDate" name="endDate" />
+												</div>
+												{/* <div className="form-group">
 													<label for="image">Upload Images</label>
 													<div className="custom-file">
 														<input type="file" className="custom-file-input" id="image" />
 														<label for="image" className="custom-file-label">Choose File</label>
 													</div>
 													<small className="form-text text-muted">Max Size 3mb </small>
-												</div>
+												</div> */}
 												<div className="form-group">
-													<label for="body">Body</label>
-													<textarea name="editor1" className="form-control"></textarea>
+													<label for="body">Other Notes</label>
+													<textarea name="other" className="form-control"></textarea>
 												</div>
 											</form>
 										</div>
 										<div className="modal-footer">
-											<button className="btn btn-success" data-dismiss="modal">Save Changes</button>
-										</div>
-									</div>
-								</div>
-							</div>
-
-
-							<div className="modal fade" id="clientListModal">
-								<div className="modal-dialog modal-lg">
-									<div className="modal-content">
-										<div className="modal-header bg-success text-white">
-											<h5 className="modal-title">Add Post</h5>
-											<button className="close" data-dismiss="modal">
-												<span>&times;</span>
-											</button>
-										</div>
-										<div className="modal-body">
-											<form>
-												<div className="form-group">
-													<label for="title">Title</label>
-													<input type="text" className="form-control" />
-												</div>
-
-											</form>
-										</div>
-										<div className="modal-footer">
-											<button className="btn btn-primary" data-dismiss="modal">Save Changes</button>
-										</div>
-									</div>
-								</div>
-							</div>
-
-
-							<div className="modal fade" id="inviteClientModal">
-								<div className="modal-dialog modal-lg">
-									<div className="modal-content">
-										<div className="modal-header bg-warning text-white">
-											<h5 className="modal-title">Invite Client</h5>
-											<button className="close" data-dismiss="modal">
-												<span>&times;</span>
-											</button>
-										</div>
-										<div className="modal-body">
-											<form>
-												<div className="form-group">
-													<label for="name">Name</label>
-													<input type="text" className="form-control" />
-												</div>
-												<div className="form-group">
-													<label for="email">Email</label>
-													<input type="email" className="form-control" />
-												</div>
-
-											</form>
-										</div>
-										<div className="modal-footer">
-											<button className="btn btn-warning" data-dismiss="modal">Save Changes</button>
+											<button className="btn btn-success" data-dismiss="modal">Create</button>
 										</div>
 									</div>
 								</div>
