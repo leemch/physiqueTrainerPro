@@ -4,13 +4,13 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 
 // Post model
-const Post = require("../../models/Post");
+const Post = require("../models/Post");
 
 // Profile model
-const Profile = require("../../models/Profile");
+const Profile = require("../models/Profile");
 
 //Validation
-const validatePostInput = require("../../validation/post");
+const validatePostInput = require("../validation/post");
 
 
 

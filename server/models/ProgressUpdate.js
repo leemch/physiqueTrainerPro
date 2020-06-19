@@ -3,14 +3,14 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const ProgressUpdateSchema = new Schema({
-	client: {
+	prep_id: {
 		type: Schema.Types.ObjectId,
-		ref: "clients"
+		ref: "preps"
 	},
 	notes: {
 		type: String
 	},
-	macros:{
+	macros: {
 		fat: {
 			type: String
 		},
@@ -24,7 +24,7 @@ const ProgressUpdateSchema = new Schema({
 	weight: {
 		type: String
 	},
-	photos:{
+	photos: {
 		type: Number
 	},
 	date: {
@@ -53,7 +53,7 @@ const ProgressUpdateSchema = new Schema({
 			}
 		}
 	]
-	
+
 });
 
 module.exports = ProgressUpdate = mongoose.model("progress_updates", ProgressUpdateSchema);

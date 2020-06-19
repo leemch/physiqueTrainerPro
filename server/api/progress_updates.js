@@ -6,25 +6,25 @@ const moment = require("moment");
 
 
 // ProgressUpdate model
-const ProgressUpdate = require("../../models/ProgressUpdate");
+const ProgressUpdate = require("../models/ProgressUpdate");
 
-const Trainer = require("../../models/User");
+const Trainer = require("../models/User");
 
 // Profile model
-const Profile = require("../../models/Profile");
+const Profile = require("../models/Profile");
 
 //Validation
-const validatePostInput = require("../../validation/post");
-const isTrainer = require("../../validation/is-trainer");
-const isAuthorized = require("../../validation/is-authorized");
+const validatePostInput = require("../validation/post");
+const isTrainer = require("../validation/is-trainer");
+const isAuthorized = require("../validation/is-authorized");
 
-const {upload} = require("../../services/image-upload");
+const {upload} = require("../services/image-upload");
 
 const singleUpload = upload.single('image');
 const multipleUpload = upload.array('image',10);
 
 
-const config = require("../../config/keys");
+const config = require("../config/keys");
 const AWS = require('aws-sdk');
 const cloudFront = new AWS.CloudFront.Signer(config.CF_ACCESS_KEY, config.RSA_PRIVATE_KEY);
 

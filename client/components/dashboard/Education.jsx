@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import Spinner from "../common/Spinner";
-import ProfileActions from "./ProfileActions";
+import Spinner from "../common/Spinner.jsx";
+import ProfileActions from "./ProfileActions.jsx";
 import Moment from "react-moment";
 import {deleteEducation} from "../../actions/profileActions";
 

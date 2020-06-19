@@ -7,6 +7,11 @@ const server = express();
 
 //API Routes
 const users = require("./api/users");
+const posts = require("./api/posts");
+const profile = require("./api/profile");
+const progressUpdates = require("./api/progress_updates");
+const imageUpload = require("./api/progress_updates");
+const clients = require("./api/clients");
 
 // DB config
 const db = require("./config/keys").mongoURI;
@@ -34,11 +39,11 @@ mongoose
 
 //Use Routes
 server.use("/api/users", users);
-// app.use("/api/profile", profile);
-// app.use("/api/posts", posts);
-// app.use("/api/clients", clients);
-// app.use("/api/progress_updates", progressUpdates);
-// app.use("/api/image-upload", imageUpload);
+server.use("/api/profile", profile);
+server.use("/api/posts", posts);
+server.use("/api/clients", clients);
+server.use("/api/progress_updates", progressUpdates);
+server.use("/api/image-upload", imageUpload);
 
 server.get('*', function(request, response) {
     response.sendFile(path.resolve(__dirname, '../dist', 'index.html'));
