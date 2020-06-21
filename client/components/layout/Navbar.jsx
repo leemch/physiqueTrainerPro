@@ -50,7 +50,7 @@ class Navbar extends Component {
         <div className="container">
 
           <Link className="navbar-brand" to="/">
-            <img style={{ width: '80px' }} src="http://u.cubeupload.com/leemch/ptplogo.png" /> PhysiqueTrainerPro
+            <img style={{ width: '80px' }} src="https://nykenavbarassets.s3-us-west-1.amazonaws.com/logo1.gif" /> PhysiqueTrainerPro
           </Link>
 
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">

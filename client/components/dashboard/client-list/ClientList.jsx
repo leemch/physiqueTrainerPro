@@ -5,20 +5,14 @@ import ClientItem from "./ClientItem.jsx";
 import axios from "axios";
 import SearchBox from "./SearchBox.jsx";
 import MacroModal from "./MacroModal.jsx";
-//import {Icon, Header} from "semantic-ui-react";
-
-
 
 
 class ClientList extends Component {
-
-
 	state = {
 		clients: [],
 		searchBox: "",
 		loading: true,
 		macroModal: true,
-
 	}
 
 	componentDidMount() {
@@ -32,15 +26,16 @@ class ClientList extends Component {
 	}
 
 	onSearchChange = event => {
-		this.setState({ searchBox: event.target.value });
+		let str = event.target.value;
+		this.setState({
+			searchBox: str
+		});
 	}
 
 	filteredClients = () => {
 		const { searchBox } = this.state;
 		const { clients } = this.state;
-		return clients.filter(c => {
-			return c.client.name.toLowerCase().includes(searchBox.toLowerCase());
-		});
+		return clients.filter(c => c.client.name.toLowerCase().includes(searchBox.toLowerCase()));
 	}
 
 	onClickMacroModal = () => {
@@ -69,9 +64,13 @@ class ClientList extends Component {
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12 mt-3">
-							<SearchBox searchChange={this.onSearchChange} searchfield={this.state.searchBox} />
+							<Link to={`/dashboard`} className="btn btn-light mb-3">
+								Back to Dashboard
+							</Link>
+							<div className="col-md-6">
+								<SearchBox searchChange={this.onSearchChange} searchfield={this.state.searchBox} />
+							</div>
 							{clientItems}
-
 						</div>
 					</div>
 				</div>

@@ -36,7 +36,7 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		const { isTrainer, name } = this.props.user;
+		const { isTrainer, name, avatar } = this.props.user;
 		const { profile, loading } = this.props.profile;
 
 		let dashboardContent;
@@ -49,10 +49,10 @@ class Dashboard extends Component {
 				// Check if logged in user has profile data
 				if (Object.keys(profile).length > 0) {
 					dashboardContent = (
-						<div>
-							<p className="lead text-muted text-center"> Welcome <Link to={'/profile/' + profile.handle}>{name} </Link></p>
-
+						<div>						
 							<div className="text-center">
+								<img src={avatar} className="rounded-circle" alt="avatar" />
+								<p className="lead text-muted text-center"> Welcome <Link to={'/profile/' + profile.handle}>{name} </Link></p>
 								<DashboardActions />
 							</div>
 							<div className="text-center">

@@ -61,40 +61,46 @@ class Register extends Component {
 
     return (
       <MenuWithLogo title="Sign Up" caption="Create your PhysiqueTrainerPro account">
-        <form onSubmit={this.onSubmit} noValidate>
-          <TextFieldGroup
-            placeholder="Name"
-            name="name"
-            value={this.state.name}
-            onChange={this.onChange}
-            error={errors.name}
-          />
-          <TextFieldGroup
-            placeholder="Email Address"
-            name="email"
-            type="email"
-            value={this.state.email}
-            onChange={this.onChange}
-            error={errors.email}
-          />
-          <TextFieldGroup
-            placeholder="Password"
-            name="password"
-            type="password"
-            value={this.state.password}
-            onChange={this.onChange}
-            error={errors.password}
-          />
-          <TextFieldGroup
-            placeholder="Confirm Password"
-            name="password2"
-            type="password"
-            value={this.state.password2}
-            onChange={this.onChange}
-            error={errors.password2}
-          />
-          <input type="submit" className="btn btn-info btn-block mt-4" />
-        </form>
+        <div className="col-md-6 mx-auto">
+          <form onSubmit={this.onSubmit} noValidate>
+            <label>Name:</label>
+            <TextFieldGroup
+              placeholder="Name"
+              name="name"
+              value={this.state.name}
+              onChange={this.onChange}
+              error={errors.name}
+            />
+            <label>Email:</label>
+            <TextFieldGroup
+              placeholder="Email Address"
+              name="email"
+              type="email"
+              value={this.state.email}
+              onChange={this.onChange}
+              error={errors.email}
+            />
+            <label>Password:</label>
+            <TextFieldGroup
+              placeholder="Password"
+              name="password"
+              type="password"
+              value={this.state.password}
+              onChange={this.onChange}
+              error={errors.password}
+            />
+            <label>Confirm Password:</label>
+            <TextFieldGroup
+              placeholder="Confirm Password"
+              name="password2"
+              type="password"
+              value={this.state.password2}
+              onChange={this.onChange}
+              error={errors.password2}
+            />
+            <input type="submit" className="btn btn-info btn-block mt-4" />
+          </form>
+        </div>
       </MenuWithLogo>
     )
   }

@@ -56,7 +56,7 @@ class ProgressDetails extends Component {
 				</div>
 
 
-				<div className="col-md-6">
+				{/* <div className="col-md-6">
 					<h3 className="text-center text-info">Training</h3>
 
 					<div className="table-responsive">
@@ -75,9 +75,8 @@ class ProgressDetails extends Component {
 						</tbody>
 
 						</table>
-					</div>
-					
-				</div>
+					</div>	
+				</div> */}
 
 				{notes != "" ? (
 				<div>

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import ProfileHeader from "./ProfileHeader.jsx";
 import ProfileAbout from "./ProfileAbout.jsx";
 import ProfileCreds from "./ProfileCreds.jsx";
-import ProfileGithub from "./ProfileGithub.jsx";
 import Spinner from "../common/Spinner.jsx";
 import { getProfileByHandle } from "../../actions/profileActions";
 

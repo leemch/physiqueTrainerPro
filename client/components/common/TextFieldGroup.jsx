@@ -13,14 +13,14 @@ const TextFieldGroup = ({
 	onChange,
 	disabled
 }) => {
-	return(
+	return (
 		<div className="form-group">
-              <input value={value} type={type} onChange={onChange} className={classnames("form-control form-control-md", {"is-invalid": error})} placeholder={placeholder} name={name} disabled={disabled} />
-              {info && <small className="form-text text-muted">{info}</small>}
+			<input value={value} type={type} onChange={onChange} className={classnames("form-control form-control-md", { "is-invalid": error })} placeholder={placeholder} name={name} disabled={disabled} />
+			{info && <small className="form-text text-muted">{info}</small>}
 
-              {error && <div className="invalid-feedback">{error}</div>}
+			{error && <div className="invalid-feedback">{error}</div>}
 
-        </div>
+		</div>
 
 	)
 };
@@ -37,7 +37,7 @@ TextFieldGroup.propTypes = {
 
 }
 
-TextFieldGroup.defaultProps ={
+TextFieldGroup.defaultProps = {
 	type: "text"
 }
 

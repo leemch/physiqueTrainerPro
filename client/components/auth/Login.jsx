@@ -68,38 +68,40 @@ class Login extends Component {
           </div>
         </header> */}
 
-        <section id="login">
+        {/* <section id="login">
           <div className="container">
-            <div className="row">
-              <div className="col-md-6 mx-auto">
+            <div className="row"> */}
 
-                <MenuWithLogo title="Trainer Account Login">
-                  <form onSubmit={this.onSubmit}>
-                    <TextFieldGroup
-                      placeholder="Email Address"
-                      name="email"
-                      type="email"
-                      value={this.state.email}
-                      onChange={this.onChange}
-                      error={errors.email}
-                    />
 
-                    <TextFieldGroup
-                      placeholder="Password"
-                      name="password"
-                      type="password"
-                      value={this.state.password}
-                      onChange={this.onChange}
-                      error={errors.password}
-                    />
-                    <input type="submit" className="btn btn-info btn-block mt-4" />
-                  </form>
-                </MenuWithLogo>
-              </div>
-            </div>
+        <MenuWithLogo title="Trainer Account Login">
+          <div className="col-md-6 mx-auto">
+            <form onSubmit={this.onSubmit}>
+              <label>Email:</label>
+              <TextFieldGroup
+                placeholder="Email Address"
+                name="email"
+                type="email"
+                value={this.state.email}
+                onChange={this.onChange}
+                error={errors.email}
+              />
+              <label>Password:</label>
+              <TextFieldGroup
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.onChange}
+                error={errors.password}
+              />
+              <input type="submit" className="btn btn-info btn-block mt-4" />
+            </form>
           </div>
-        </section>
+        </MenuWithLogo>
       </div>
+      //     </div>
+      //   </section>
+      // </div>
 
     )
   }

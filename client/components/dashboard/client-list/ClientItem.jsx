@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {Link} from "react-router-dom";
-import {connect} from "react-redux";
+import React, { Component } from 'react';
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import isEmpty from "../../../validation/isEmpty";
 import TextFieldGroup from "../../common/TextFieldGroup.jsx";
-import {setClientMacros} from "../../../actions/trainerActions";
+import { setClientMacros } from "../../../actions/trainerActions";
 
 
 
@@ -20,43 +20,37 @@ class ClientItem extends Component {
 			protein: 0,
 			carbs: 0
 		}
-
 	}
 
-
 	onChange = (event) => {
-		this.setState({[event.target.name]: event.target.value});
+		this.setState({ [event.target.name]: event.target.value });
 	}
 
 	setCurrentMacros = (client) => {
-
 		const newMacros = {
-			fat: this.state.fat.toString(),
-			protein: this.state.protein.toString(),
-			carbs: this.state.carbs.toString()
+			fat: this.state.fat,
+			protein: this.state.protein,
+			carbs: this.state.carbs
 		}
-		console.log(this.props.id);
 		this.props.setClientMacros(client.client._id, newMacros);
-
 	}
 
 	loadMacros = (client_id) => {
-		
+
 	}
 
 
 
 	render() {
-		const {client} = this.props;
+		const { client } = this.props;
 
-
-		return(
+		return (
 			<div className="card card-body bg-light mb-3 shadow-lg">
 				<div className="row">
-					<div className="col-2">
-						<img src={client.client.avatar} className="rounded-circle" alt="avatar" />
+					<div className="col-md-2">
+						<img src={client.client.avatar} style={{"width": "7rem"}} className="rounded-circle" alt="avatar" />
 					</div>
-					<div className="col-lg-6 col-md-4 col-8">
+					<div className="col-lg-6 col-md-4 col-8 mx-auto">
 						<h3>{client.client.name}</h3>
 						{/* <Link to={`/client/${client.handle}`} className="btn btn-info">
 							Manage Client
@@ -64,15 +58,27 @@ class ClientItem extends Component {
 						<button type="button" className="btn btn-primary mr-3" data-toggle="modal" data-target={`#exampleModalCenter${client.client._id}`}>Set macros</button>
 						<Link to={`/progress_feed/${client.client._id}`} type="button" className="btn btn-primary">View Progress Updates</Link>
 
-{/* ////////////////////////////////////////// */}
-						{/* <!-- Modal --> */}
-						<div className="modal fade" id={`exampleModalCenter${client.client._id}`} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-						<div className="modal-dialog modal-dialog-centered" role="document">
-							<div className="modal-content">
+
+
+					</div>
+					<div className="col-md-4 d-none d-md-block">
+						<h4>Updates</h4>
+						<i className="fa fa-check pr-1" />
+										New progress update available.
+						</div>
+
+				</div>
+
+
+				{/* ////////////////////////////////////////// */}
+				{/* <!-- Modal --> */}
+				<div className="modal fade" id={`exampleModalCenter${client.client._id}`} tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div className="modal-dialog modal-dialog-centered" role="document">
+						<div className="modal-content">
 							<div className="modal-header">
 								<h5 className="modal-title" id="exampleModalCenterTitle">Set Client Macros</h5>
 								<button type="button" className="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
+									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
 							<div className="modal-body">
@@ -82,21 +88,12 @@ class ClientItem extends Component {
 							</div>
 							<div className="modal-footer">
 								<button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-								<button type="button" onClick={() => this.setCurrentMacros(client)} className="btn btn-primary">Save macros</button>
-							</div>
+								<button type="button" onClick={() => this.setCurrentMacros(client)} className="btn btn-primary" data-dismiss="modal">Save macros</button>
 							</div>
 						</div>
-						</div>
-						{/* ////////////////////////// */}
-
 					</div>
-					<div className="col-md-4 d-none d-md-block">
-							<h4>Updates</h4>
-										<i className="fa fa-check pr-1" />
-										New progress update available.
-						</div>
-
 				</div>
+				{/* ////////////////////////// */}
 
 			</div>
 		)
@@ -104,4 +101,4 @@ class ClientItem extends Component {
 
 }
 
-export default connect(null, {setClientMacros})(ClientItem);
+export default connect(null, { setClientMacros })(ClientItem);

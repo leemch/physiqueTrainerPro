@@ -99,9 +99,6 @@ router.post("/client_register/:handle", (req, res) => {
 				return res.status(400).json(errors);
 			}
 			else {
-
-
-
 				const avatar = gravatar.url(req.body.email, {
 					s: "200", // size
 					rating: "pg", //rating
@@ -130,7 +127,6 @@ router.post("/client_register/:handle", (req, res) => {
 											return res.status(400).json(errors);
 										}
 										else {
-											//console.log(trainer);
 											const trainerNewClient = {
 												client: client._id,
 												progress_update: []
@@ -138,6 +134,7 @@ router.post("/client_register/:handle", (req, res) => {
 											User.findById(trainer.user.id)
 												.then(user => {
 													user.client_list.unshift(trainerNewClient);
+													// user.client_list.unshift(client._id);
 													user.save();
 												});
 
@@ -312,9 +309,9 @@ router.get("/clients", passport.authenticate("jwt", { session: false }), (req, r
 
 				if (!trainer.client_list) {
 					errors.noclients = "There are no clients";
-					return res.status(404).json(errors);
+					return res.status(404).send(errors);
 				}
-				res.json(trainer.client_list)
+				res.send(trainer.client_list)
 
 			})
 			.catch(err => console.error(err));

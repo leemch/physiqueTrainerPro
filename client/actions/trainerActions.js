@@ -23,11 +23,10 @@ export const getCurrentClients = () => dispatch => {
 export const setClientMacros = (client_id, macros) => dispatch => {
 	axios.post(`/api/users/macros/${client_id}`, macros)
 	.then(res => 
-		console.log("Success")
+		alert("Daily macro goals were set successfully!")
 	)
-	.catch(err => dispatch({
-		type: GET_ERRORS,
-		payload: err.response.data
-	}))
+	.catch(err => {
+		alert("Failed to set macros.")
+	})
 	
 }
