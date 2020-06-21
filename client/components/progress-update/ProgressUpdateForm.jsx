@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
-import {connect} from "react-redux";
+import React, { Component } from 'react';
+import { connect } from "react-redux";
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup.jsx";
 import TextFieldGroup from "../common/TextFieldGroup.jsx";
 import InputGroup from "../common/InputGroup.jsx";
 //import {addPost} from "../../actions/postActions";
 import PropTypes from "prop-types";
 
-import {uploadImage, addProgressUpdate} from "../../actions/clientActions";
+import { uploadImage, addProgressUpdate } from "../../actions/clientActions";
 import axios from 'axios';
 
-import { FilePond, registerPlugin  } from 'react-filepond';
+import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 
 
@@ -26,28 +26,28 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 class ProgressUpdateForm extends Component {
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.state = {
-            photos: [],
-            fat: "",
-            protein: "",
-            carbs: "",
-            weight: "",
+			photos: [],
+			fat: "",
+			protein: "",
+			carbs: "",
+			weight: "",
 			notes: "",
 			errors: {},
 			files: [],
-			success : false,
-      		imageUrl : ""
+			success: false,
+			imageUrl: ""
 		}
 	}
 
 	onChange = e => {
-		this.setState({[e.target.name]: e.target.value});
+		this.setState({ [e.target.name]: e.target.value });
 	}
 
 	componentWillReceiveProps(newProps) {
-		if(newProps.errors) {
+		if (newProps.errors) {
 			this.setState({
 				errors: newProps.errors
 			});
@@ -61,23 +61,23 @@ class ProgressUpdateForm extends Component {
 
 
 	handleInit() {
-        console.log('FilePond instance has initialised', this.pond);
+		console.log('FilePond instance has initialised', this.pond);
 	}
 
 	handleChange = (ev) => {
-		this.setState({success: false, url : ""});
-		
-	  }
+		this.setState({ success: false, url: "" });
 
-	  onError = (error) => {
+	}
+
+	onError = (error) => {
 		debugger;
-	  }
+	}
 
-	  onSuccess = (uploadedImage) => {
-		this.setState({imageUrl: uploadImage});
+	onSuccess = (uploadedImage) => {
+		this.setState({ imageUrl: uploadImage });
 		//debugger;
-	  }
-	
+	}
+
 
 	// Perform the upload
 	handleUpload = (ev) => {
@@ -88,13 +88,12 @@ class ProgressUpdateForm extends Component {
 		console.log("Preparing the upload");
 
 
-		if(files){
-			uploadImage(files)
-			.then((uploadedImage) => {this.onSuccess(uploadedImage)},
-			(error) => {this.onError(error)});
-		}
+		// if (files) {
+		// 	uploadImage(files)
+		// 		.then((uploadedImage) => { this.onSuccess(uploadedImage) },
+		// 			(error) => { this.onError(error) });
+		// }
 
-		const {user} = this.props.auth;
 
 		const newProgress = {
 			notes: this.state.notes,
@@ -102,33 +101,30 @@ class ProgressUpdateForm extends Component {
 			fat: this.state.fat,
 			protein: this.state.protein,
 			weight: this.state.weight,
-			trainerId: user.current_trainer,
-			avatar: user.avatar,
 			photos: this.state.files.length,
 			images: this.state.files
 		};
 
 		this.props.addProgressUpdate(newProgress, this.props.history);
-		this.setState({text: ""});
+		this.setState({ text: "" });
+
+	}
 
 
-	  }
 
+	render() {
 
-
-	render(){
-		
-		const {errors} = this.state;
+		const { errors } = this.state;
 
 		const success_message = () => (
-			<div style={{padding:50}}>
-				<h3 style={{color: 'green'}}>SUCCESSFUL UPLOAD</h3>
+			<div style={{ padding: 50 }}>
+				<h3 style={{ color: 'green' }}>SUCCESSFUL UPLOAD</h3>
 				<a href={this.state.url}>Access the file here</a>
-				<br/>
+				<br />
 			</div>
 		);
-
-		return(
+		console.log(this.props.auth.user.id);
+		return (
 			<div className="add-progress">
 				<div className="container">
 					<div className="row">
@@ -140,70 +136,70 @@ class ProgressUpdateForm extends Component {
 							<small className="d-block pb-3">* = required fields</small>
 
 							<form onSubmit={this.handleUpload}>
-                                    <div>
-									
+								<div>
+
 									<center>
 										<h1>Upload your photos</h1>
 										{this.state.success ? <success_message /> : null}
-										<br/>
+										<br />
 									</center>
 
 									<FilePond ref={ref => this.pond = ref}
-											files={this.state.files}
-											allowMultiple={true}
-											maxFiles={5}
-											//server="/api"
-											oninit={() => this.handleInit() }
-											onupdatefiles={(fileItems) => {
-												// Set current file objects to this.state
-												this.setState({
-													files: fileItems.map(fileItem => fileItem.file)
-												});
-												console.log(this.state.files);
-											}}>
+										files={this.state.files}
+										allowMultiple={true}
+										maxFiles={5}
+										//server="/api"
+										oninit={() => this.handleInit()}
+										onupdatefiles={(fileItems) => {
+											// Set current file objects to this.state
+											this.setState({
+												files: fileItems.map(fileItem => fileItem.file)
+											});
+											console.log(this.state.files);
+										}}>
 									</FilePond>
 
-									
 
 
 
-                                        <InputGroup 
-                                            placeholder="Weight"
-                                            name="weight"
-                                            icon="fas fa-weight"
-                                            value={this.state.weight}
-                                            onChange={this.onChange}
-                                            error={errors.weight}
-                                        />
-                                        <InputGroup 
-                                            placeholder="Protein"
-                                            name="protein"
-                                            icon="fas fa-utensils"
-                                            value={this.state.protein}
-                                            onChange={this.onChange}
-                                            error={errors.protein}
-                                        />
-                                        <InputGroup 
-                                            placeholder="Fat"
-                                            name="fat"
-                                            icon="fas fa-utensils"
-                                            value={this.state.fat}
-                                            onChange={this.onChange}
-                                            error={errors.fat}
-                                        />
-                                        <InputGroup 
-                                            placeholder="Carbohydrates"
-                                            name="carbs"
-                                            icon="fas fa-utensils"
-                                            value={this.state.carbs}
-                                            onChange={this.onChange}
-                                            error={errors.carbs}
-                                        />
 
-										<TextAreaFieldGroup placeholder = "Notes" name="notes" value={this.state.notes} onChange={this.onChange} error={errors.notes}
+									<InputGroup
+										placeholder="Weight"
+										name="weight"
+										icon="fas fa-weight"
+										value={this.state.weight}
+										onChange={this.onChange}
+										error={errors.weight}
+									/>
+									<InputGroup
+										placeholder="Protein"
+										name="protein"
+										icon="fas fa-utensils"
+										value={this.state.protein}
+										onChange={this.onChange}
+										error={errors.protein}
+									/>
+									<InputGroup
+										placeholder="Fat"
+										name="fat"
+										icon="fas fa-utensils"
+										value={this.state.fat}
+										onChange={this.onChange}
+										error={errors.fat}
+									/>
+									<InputGroup
+										placeholder="Carbohydrates"
+										name="carbs"
+										icon="fas fa-utensils"
+										value={this.state.carbs}
+										onChange={this.onChange}
+										error={errors.carbs}
+									/>
+
+									<TextAreaFieldGroup placeholder="Notes" name="notes" value={this.state.notes} onChange={this.onChange} error={errors.notes}
 										info="Tell your trainer some details about this progress update." />
-                                        
-                                    </div>
+
+								</div>
 
 
 
@@ -223,7 +219,7 @@ class ProgressUpdateForm extends Component {
 ProgressUpdateForm.propTypes = {
 	addProgressUpdate: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
-	errors:PropTypes.object.isRequired
+	errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -231,4 +227,4 @@ const mapStateToProps = state => ({
 	errors: state.errors
 });
 
-export default connect(mapStateToProps, {addProgressUpdate})(ProgressUpdateForm);
+export default connect(mapStateToProps, { addProgressUpdate })(ProgressUpdateForm);

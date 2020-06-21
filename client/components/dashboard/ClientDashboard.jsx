@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { getCurrentMacros, deleteAccount } from "../../actions/clientActions";
 import ProfileHeader from '../profile/ProfileHeader.jsx'
 import Spinner from "../common/Spinner.jsx";
-import ProfileActions from "./ProfileActions.jsx";
+import ProfileActions from "./DashboardActions.jsx";
 import Experience from "./Experience.jsx";
 import Education from "./Education.jsx";
 import isEmpty from "../../validation/isEmpty"

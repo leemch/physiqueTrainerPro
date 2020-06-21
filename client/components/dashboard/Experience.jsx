@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import Spinner from "../common/Spinner.jsx";
-import ProfileActions from "./ProfileActions.jsx";
+import ProfileActions from "./DashboardActions.jsx";
 import Moment from "react-moment";
 import {deleteExperience} from "../../actions/profileActions";
 

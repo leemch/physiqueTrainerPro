@@ -1,13 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {loginUser} from "../../actions/authActions.js";
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/authActions.js";
 import TextFieldGroup from "../common/TextFieldGroup.jsx";
+import MenuWithLogo from "../common/MenuWithLogo.jsx";
 
 class Login extends Component {
 
 
-constructor() {
+  constructor() {
     super();
     this.state = {
       email: "",
@@ -19,23 +20,23 @@ constructor() {
 
 
   onChange = (event) => {
-    this.setState({[event.target.name]: event.target.value});
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   componentDidMount() {
-    if(this.props.auth.isAuthenticated){
+    if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
   }
 
   componentWillReceiveProps(nextProps) {
 
-    if(nextProps.auth.isAuthenticated){
+    if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
 
-    if(nextProps.errors){
-      this.setState({errors: nextProps.errors});
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
     }
   }
 
@@ -50,33 +51,29 @@ constructor() {
   }
 
 
-	render() {
+  render() {
 
-    const {errors} = this.state;
+    const { errors } = this.state;
 
-		return(
-		<div className="login">
+    return (
+      <div className="login">
 
-              <header id="main-header" className="py-2 bg-info text-white rounded">
-								<div className="container">
-									<div className="row">
-										<div className="col-md-6">
-											<h1><i className=" fas fa-user"></i> Login</h1>
-										</div>
-									</div>
-								</div>
-							</header>
-
-    <section id="login">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6 mx-auto">              
-            <div className="card">
-              <div className="card-header">
-                <h4 className="lead text-center">Trainer Account Login</h4>
+        {/* <header id="main-header" className="py-2 bg-info text-white rounded mb-5">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6">
+                <h1><i className=" fa fa-user"></i> Login</h1>
               </div>
-                <div className="card-body">
-                  
+            </div>
+          </div>
+        </header> */}
+
+        <section id="login">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6 mx-auto">
+
+                <MenuWithLogo title="Trainer Account Login">
                   <form onSubmit={this.onSubmit}>
                     <TextFieldGroup
                       placeholder="Email Address"
@@ -97,17 +94,15 @@ constructor() {
                     />
                     <input type="submit" className="btn btn-info btn-block mt-4" />
                   </form>
-                </div>
-              
+                </MenuWithLogo>
+              </div>
             </div>
           </div>
-        </div>
-    </div>
-    </section>
-  </div>
+        </section>
+      </div>
 
-		)
-	}
+    )
+  }
 }
 
 Login.propTypes = {
@@ -121,4 +116,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, {loginUser})(Login);
+export default connect(mapStateToProps, { loginUser })(Login);

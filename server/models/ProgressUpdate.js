@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const ProgressUpdateSchema = new Schema({
-	prep_id: {
+	client: {
 		type: Schema.Types.ObjectId,
-		ref: "preps"
+		ref: "clients"
 	},
 	notes: {
 		type: String

@@ -9,7 +9,6 @@ class ProgressUpdateFeed extends Component {
 	render(){
 		const {progressUpdates} = this.props;
 		return progressUpdates.map(progressUpdate => <ProgressUpdateItem key={progressUpdate._id} progressUpdate={progressUpdate} />);
-		
 	}
 
 }

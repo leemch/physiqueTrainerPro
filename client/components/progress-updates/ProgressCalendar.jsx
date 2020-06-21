@@ -23,7 +23,6 @@ class ProgressCalendar extends React.Component {
     calendarWeekends: true,
     calendarEvents: [],
     loading: true
-
   };
 
 
