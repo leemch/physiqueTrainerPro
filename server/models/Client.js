@@ -31,6 +31,10 @@ const ClientSchema = new Schema({
 	current_trainer: {
 		type: Schema.Types.ObjectId,
 	},
+	new_updates: {
+		type: Boolean,
+		default: false
+	},
 	macros: {
 		fat: {
 			type: Number,

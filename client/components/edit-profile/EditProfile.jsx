@@ -9,6 +9,7 @@ import SelectListGroup from "../common/SelectListGroup.jsx";
 import { createProfile, getCurrentProfile } from "../../actions/profileActions";
 import isEmpty from "../../validation/isEmpty";
 
+
 class CreateProfile extends Component {
 
 	constructor(props) {
@@ -94,9 +95,8 @@ class CreateProfile extends Component {
 	}
 
 
-
 	render() {
-		const { errors, displaySocialInputs } = this.state;
+		const { errors, displaySocialInputs, previewImage } = this.state;
 
 		let socialInputs;
 
@@ -146,6 +146,8 @@ class CreateProfile extends Component {
 							<small className="d-block pb-3">* = required fields</small>
 
 							<form onSubmit={this.onSubmit}>
+
+								
 
 								<TextFieldGroup placeholder="* Profile Handle" name="handle" value={this.state.handle} onChange={this.onChange} error={errors.handle}
 									info="A unique handle for your profile URL. Your full name, company name, nickname" />

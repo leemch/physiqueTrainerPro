@@ -48,7 +48,7 @@ class ClientItem extends Component {
 			<div className="card card-body bg-light mb-3 shadow-lg">
 				<div className="row">
 					<div className="col-md-2">
-						<img src={client.client.avatar} style={{"width": "7rem"}} className="rounded-circle" alt="avatar" />
+						<img src={client.client.avatar} style={{ "width": "7rem" }} className="rounded-circle" alt="avatar" />
 					</div>
 					<div className="col-lg-6 col-md-4 col-8 mx-auto">
 						<h3>{client.client.name}</h3>

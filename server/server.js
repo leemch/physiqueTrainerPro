@@ -10,7 +10,7 @@ const users = require("./api/users");
 const posts = require("./api/posts");
 const profile = require("./api/profile");
 const progressUpdates = require("./api/progress_updates");
-const imageUpload = require("./api/progress_updates");
+const imageUpload = require("./api/image-upload");
 const clients = require("./api/clients");
 
 // DB config

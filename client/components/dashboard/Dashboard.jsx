@@ -1,33 +1,36 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile, getProfileById, deleteAccount } from "../../actions/profileActions";
+import { uploadProfilePicture } from "../../actions/authActions";
 import Spinner from "../common/Spinner.jsx";
 import DashboardActions from "./DashboardActions.jsx";
 import Experience from "./Experience.jsx";
 import Education from "./Education.jsx";
 import ClientDashboard from "./ClientDashboard.jsx";
-
 import ColoredBlock from "../common/ColoredBlock.jsx";
-
-import ClientList from "./client-list/ClientList.jsx";
-import axios from "axios";
-
-//import {Header, Icon} from "semantic-ui-react";
-
+import AvatarEditor from "react-avatar-editor";
 
 class Dashboard extends Component {
 
-	state = {
-		photos: {}
+	constructor(props) {
+		super(props);
+		this.state = {
+			previewImage: "",
+			croppedImage: "",
+			blob: "",
+			uploadCroppedImage: "",
+			metaData: {
+				contentType: "image/jpeg"
+			},
+			avatar: ""
+		}
 	}
 
-
 	componentDidMount() {
-
 		if (this.props.user.isTrainer) {
 			this.props.getCurrentProfile();
+			this.setState({avatar: this.props.user.avatar});
 		}
 	}
 
@@ -35,9 +38,35 @@ class Dashboard extends Component {
 		this.props.deleteAccount();
 	}
 
+
+	handleImageChange = (event) => {
+		this.setState({ previewImage: event.target.files[0] });
+	}
+
+	handleCropImage = () => {
+		if (this.avatarEditor) {
+			this.avatarEditor.getImageScaledToCanvas().toBlob(blob => {
+				let imageFile = new File([blob], this.state.previewImage.name)
+				let imageUrl = URL.createObjectURL(blob);
+				console.log("url:", imageUrl);
+				console.log("File:", this.state.previewImage);
+				console.log("imageFile:", imageFile);
+				this.setState({
+					croppedImage: imageUrl,
+					blob: imageFile
+				});
+			});
+		}
+	}
+
+	uploadCroppedImage = () => {
+		this.props.uploadProfilePicture(this.state.blob, () => { this.setState({avatar: this.state.croppedImage}) });
+	}
+
 	render() {
 		const { isTrainer, name, avatar } = this.props.user;
 		const { profile, loading } = this.props.profile;
+		const { previewImage, croppedImage, blob } = this.state;
 
 		let dashboardContent;
 
@@ -49,9 +78,43 @@ class Dashboard extends Component {
 				// Check if logged in user has profile data
 				if (Object.keys(profile).length > 0) {
 					dashboardContent = (
-						<div>						
+						<div>
 							<div className="text-center">
-								<img src={avatar} className="rounded-circle" alt="avatar" />
+								<img src={this.state.avatar} className="rounded-circle" alt="avatar" />
+								<input
+									type="file"
+									label="New Avatar"
+									name="previewImage"
+									onChange={this.handleImageChange}
+								/>
+								{previewImage && (
+									<AvatarEditor
+										image={previewImage}
+										width={120}
+										height={120}
+										border={50}
+										scale={1.2}
+										ref={node => (this.avatarEditor = node)}
+									/>
+								)}
+								{croppedImage && (
+									<img
+										style={{ margin: "3.5em auto" }}
+										width={100}
+										height={100}
+										src={croppedImage}
+									/>
+								)}
+								{croppedImage && <button color="green" onClick={this.uploadCroppedImage}>
+									<i name="save" /> Change Avatar
+                            </button>}
+								<button color="green" onClick={this.handleCropImage}>
+									<i name="image" /> Preview
+                            </button>
+								<button color="red" onClick={this.closeModal}>
+									<i name="remove" /> Cancel
+                            </button>
+
 								<p className="lead text-muted text-center"> Welcome <Link to={'/profile/' + profile.handle}>{name} </Link></p>
 								<DashboardActions />
 							</div>
@@ -132,4 +195,4 @@ const mapStateToProps = state => ({
 	user: state.auth.user
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, getProfileById, deleteAccount })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, getProfileById, deleteAccount, uploadProfilePicture })(Dashboard);

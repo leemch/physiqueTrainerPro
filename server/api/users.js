@@ -45,11 +45,7 @@ router.post("/register", (req, res) => {
 				return res.status(400).json(errors);
 			}
 			else {
-				const avatar = gravatar.url(req.body.email, {
-					s: "200", // size
-					rating: "pg", //rating
-					d: "mm", //default
-				})
+				const avatar = "https://physique-trainer-pro.s3.ca-central-1.amazonaws.com/blank_profile.png"
 
 
 				const newUser = new User({
@@ -355,6 +351,17 @@ router.get("/current", passport.authenticate("jwt", { session: false }), (req, r
 		isTrainer: req.user.isTrainer,
 		current_trainer: req.user.current_trainer
 	});
+});
+
+//@route   GET api/users/avatar
+//@desc    Return current users profile picture
+//@access  Private
+router.get("/avatar", passport.authenticate("jwt", { session: false }), (req, res) => {
+	User.findById(req.user.id)
+		.then(user => {
+			res.send(user.avatar)
+		})
+		.catch(err => res.status(400).send(err));
 });
 
 module.exports = router;

@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-import { setCurrentUser, logoutUser } from "./actions/authActions";
+import { setCurrentUser, logoutUser, getProfilePicture } from "./actions/authActions";
 import { clearCurrentProfile } from "./actions/profileActions";
 
 
@@ -51,7 +51,7 @@ if (localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   // Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
-
+  store.dispatch(getProfilePicture());
 
   // Check for expired token
   const currentTime = Date.now() / 1000;
@@ -63,15 +63,11 @@ if (localStorage.jwtToken) {
     //Redirect to login
     window.location.href = "/login";
   }
-
 }
 
 
 
 class App extends Component {
-
-
-
 
   render() {
     return (
@@ -81,54 +77,33 @@ class App extends Component {
             <Navbar />
             <Route exact path="/" component={Landing} />
             <div className="container">
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/not-found" component={NotFound} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/not-found" component={NotFound} />
 
-                <Route exact path="/client_register/:trainer_handle" component={ClientRegister} />
-                <Route exact path="/client_login/:trainer_id" component={ClientLogin} />
-                <Route exact path="/profiles" component={Profiles} />
-                <Route exact path="/profile/:handle" component={Profile} />
+              <Route exact path="/client_register/:trainer_handle" component={ClientRegister} />
+              <Route exact path="/client_login/:trainer_id" component={ClientLogin} />
+              <Route exact path="/profiles" component={Profiles} />
+              <Route exact path="/profile/:handle" component={Profile} />
 
-                <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                <PrivateRoute exact path="/create-profile" component={CreateProfile} />
-                <PrivateRoute exact path="/edit-profile" component={EditProfile} />
-                <PrivateRoute exact path="/add-experience" component={AddExperience} />
-                <PrivateRoute exact path="/add-education" component={AddEducation} />
-                <PrivateRoute exact path="/feed" component={Posts} />
-                <PrivateRoute exact path="/post/:id" component={Post} />
-                <PrivateRoute exact path="/client_list" component={ClientList} />
-                <PrivateRoute exact path="/progress_feed/:client_id" component={ProgressCalendar} />
-                <PrivateRoute exact path="/progress_details/:id" component={ProgressUpdatePost} />
-                <PrivateRoute exact path="/progress_add" component={ProgressUpdateForm} />
-                <PrivateRoute exact path="/settings" component={Settings} />
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+              <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+              <PrivateRoute exact path="/add-experience" component={AddExperience} />
+              <PrivateRoute exact path="/add-education" component={AddEducation} />
+              <PrivateRoute exact path="/feed" component={Posts} />
+              <PrivateRoute exact path="/post/:id" component={Post} />
+              <PrivateRoute exact path="/client_list" component={ClientList} />
+              <PrivateRoute exact path="/progress_feed/:client_id" component={ProgressCalendar} />
+              <PrivateRoute exact path="/progress_details/:id" component={ProgressUpdatePost} />
+              <PrivateRoute exact path="/progress_add" component={ProgressUpdateForm} />
+              <PrivateRoute exact path="/settings" component={Settings} />
 
             </div>
             <Footer />
           </div>
         </Router>
       </Provider>
-
-      // <Provider store={store}>
-
-      //   <div className="App">
-      //     <Router>
-      //       <Navbar />
-      //       <Switch>
-
-      //         <Route path="/register" component={Register} />
-      //         <Route path="/login" component={Login} />
-      //         <Route path="/not-found" component={NotFound} />
-      //         <Route path="/profiles" component={Profiles} />
-      //         <Route exact path="/profile/:handle" component={Profile} />
-      //         <Route exact path="/client_register/:trainer_handle" component={ClientRegister} />
-      //         <Route exact path="/client_login/:trainer_id" component={ClientLogin} />
-      //         <Route path="/" component={Landing} />
-      //       </Switch>
-      //     </Router>
-      //     <Footer />
-      //   </div>
-      // </Provider>
     );
   }
 }
