@@ -23,7 +23,8 @@ class Landing extends Component {
             </h1>
                 <p className="lead"> Manage your clients progress through easy and organized check ins.</p>
                 <hr />
-                <Link to="/register" className="btn btn-lg btn-info mr-2">Sign Up</Link>
+
+                <Link to="/register" className="btn btn-lg btn-danger mr-2">Sign Up</Link>
                 <Link to="/login" className="btn btn-lg btn-light">Login</Link>
               </div>
             </div>

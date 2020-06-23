@@ -3,8 +3,6 @@ const router = express.Router();
 const passport = require("passport");
 
 const { upload, uploadProfilePicture } = require("../services/image-upload");
-const config = require("../config/keys");
-const AWS = require('aws-sdk');
 const singleUpload = upload.single('image');
 const multipleUpload = upload.array('image', 10);
 const User = require("../models/User");

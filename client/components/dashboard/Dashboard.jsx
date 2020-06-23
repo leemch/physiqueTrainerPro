@@ -30,7 +30,7 @@ class Dashboard extends Component {
 	componentDidMount() {
 		if (this.props.user.isTrainer) {
 			this.props.getCurrentProfile();
-			this.setState({avatar: this.props.user.avatar});
+			this.setState({ avatar: this.props.user.avatar });
 		}
 	}
 
@@ -48,9 +48,6 @@ class Dashboard extends Component {
 			this.avatarEditor.getImageScaledToCanvas().toBlob(blob => {
 				let imageFile = new File([blob], this.state.previewImage.name)
 				let imageUrl = URL.createObjectURL(blob);
-				console.log("url:", imageUrl);
-				console.log("File:", this.state.previewImage);
-				console.log("imageFile:", imageFile);
 				this.setState({
 					croppedImage: imageUrl,
 					blob: imageFile
@@ -60,7 +57,7 @@ class Dashboard extends Component {
 	}
 
 	uploadCroppedImage = () => {
-		this.props.uploadProfilePicture(this.state.blob, () => { this.setState({avatar: this.state.croppedImage}) });
+		this.props.uploadProfilePicture(this.state.blob, () => { this.setState({ avatar: this.state.croppedImage }) });
 	}
 
 	render() {
@@ -80,42 +77,52 @@ class Dashboard extends Component {
 					dashboardContent = (
 						<div>
 							<div className="text-center">
-								<img src={this.state.avatar} className="rounded-circle" alt="avatar" />
-								<input
-									type="file"
-									label="New Avatar"
-									name="previewImage"
-									onChange={this.handleImageChange}
-								/>
-								{previewImage && (
-									<AvatarEditor
-										image={previewImage}
-										width={120}
-										height={120}
-										border={50}
-										scale={1.2}
-										ref={node => (this.avatarEditor = node)}
+								<p className="lead text-muted text-center display-4"> Welcome <Link to={'/profile/' + profile.handle}>{name} </Link></p>
+								<img src={this.state.avatar ? this.state.avatar : "https://physique-trainer-pro.s3.ca-central-1.amazonaws.com/blank_profile.png"} className="rounded-circle mb-4" alt="avatar" />
+								<div className="mb-4">
+									<label>Change profile picture: </label>
+									<input
+										type="file"
+										label="New Avatar"
+										name="previewImage"
+										onChange={this.handleImageChange}
 									/>
-								)}
-								{croppedImage && (
-									<img
-										style={{ margin: "3.5em auto" }}
-										width={100}
-										height={100}
-										src={croppedImage}
-									/>
-								)}
-								{croppedImage && <button color="green" onClick={this.uploadCroppedImage}>
-									<i name="save" /> Change Avatar
+									<div>
+										{previewImage && (
+											<AvatarEditor
+												image={previewImage}
+												width={120}
+												height={120}
+												border={50}
+												scale={2.0}
+												ref={node => (this.avatarEditor = node)}
+											/>
+										)}
+										{croppedImage && (
+											<img
+												style={{ margin: "3.5em auto" }}
+												width={100}
+												height={100}
+												src={croppedImage}
+											/>
+										)}
+										<div>
+											{croppedImage && <button color="green" onClick={this.uploadCroppedImage}>
+												<i name="save" /> Save
                             </button>}
-								<button color="green" onClick={this.handleCropImage}>
-									<i name="image" /> Preview
-                            </button>
-								<button color="red" onClick={this.closeModal}>
-									<i name="remove" /> Cancel
-                            </button>
 
-								<p className="lead text-muted text-center"> Welcome <Link to={'/profile/' + profile.handle}>{name} </Link></p>
+											{previewImage && <button color="green" onClick={this.handleCropImage}>
+												<i name="image" /> Preview
+                            		</button>}
+											{previewImage && <button color="red" onClick={this.closeModal}>
+												<i name="remove" /> Cancel
+                            		</button>}
+										</div>
+
+									</div>
+
+								</div>
+
 								<DashboardActions />
 							</div>
 							<div className="text-center">
@@ -186,8 +193,6 @@ class Dashboard extends Component {
 
 		)
 	}
-
-
 }
 
 const mapStateToProps = state => ({

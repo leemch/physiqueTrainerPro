@@ -123,26 +123,42 @@ router.post("/", passport.authenticate("jwt", { session: false }), (req, res) =>
 					.then(progress => res.send(progress));
 			}
 		})
-		.catch(err => res.status(404).json({ noupdatesfound: "No progress updates found for that client." }))
+		.catch(err => res.status(404).send({ noupdatesfound: "No progress updates found for that client." }))
 	//});
 });
 
 
-const getPhotoUrls = (client_id, date, numPhotos) => {
-
+async function getPhotoUrls(client_id, date, numPhotos) {
 	let urls = [];
-
 	for (let x = 0; x < numPhotos; x++) {
-		// Generating a signed URL
-		cloudFront.getSignedUrl({
-			url: 'http://d12w44ud3mpa5f.cloudfront.net/' + 'client-photos' + '/' + client_id + '/' + date + '/' + x + ".jpg",
-			expires: Math.floor((new Date()).getTime() / 1000) + (5) // Current Time in UTC + time in seconds, (60 * 60 * 1 = 1 hour)
-		}, (err, url) => {
-			if (err) throw err;
-			urls.push(url);
-		});
+		// Generating a signed URL for each photo
+		const fileName = 'client-photos' + '/' + client_id + '/' + date + '/' + x + ".jpg";
+		const imageUrl = await getImageUrl(fileName);
+		urls.push(imageUrl);
 	}
+
+	console.log(urls);
 	return urls;
+}
+
+async function getImageUrl(path) {
+	return new Promise((resolve, reject) => {
+		var credentials = {
+			secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
+			accessKeyId: config.AWS_ACCESS_KEY_ID,
+			region: "ca-central-1"
+		};
+		var s3 = new AWS.S3(credentials);
+		var params = { Bucket: 'physique-trainer-pro', Key: path, Expires: 20 };
+
+		s3.getSignedUrl('getObject', params, function (err, url) {
+			//console.log('Signed URL: ' + url);
+			if (err) {
+				reject(err);
+			}
+			resolve(url);
+		});
+	})
 }
 
 //Get signed urls to photos
@@ -154,7 +170,9 @@ router.get('/photos/:client_id/:date/:num_photos', passport.authenticate("jwt", 
 			.then(trainer => {
 
 				if (trainer.client_list.filter(trainersClient => trainersClient.client == req.params.client_id).length > 0) {
-					res.json(getPhotoUrls(req.params.client_id, req.params.date, req.params.num_photos));
+					getPhotoUrls(req.params.client_id, req.params.date, req.params.num_photos).then(photos => {
+						return res.status(200).send(photos);
+					})
 				}
 				else {
 					return res.status(404).json({ notclient: "This is not your client." });
@@ -163,7 +181,9 @@ router.get('/photos/:client_id/:date/:num_photos', passport.authenticate("jwt", 
 			.catch(err => res.status(404).json({ notrainer: "Trainer not found" }));
 	} else {
 		if (req.user.id === req.params.client_id) {
-			res.json(getPhotoUrls(req.params.client_id, req.params.date, req.params.num_photos));
+			getPhotoUrls(req.params.client_id, req.params.date, req.params.num_photos).then(photos => {
+				return res.status(200).send(photos);
+			})
 		}
 		else {
 			return res.status(404).json({ notclient: "These are not your updates" });

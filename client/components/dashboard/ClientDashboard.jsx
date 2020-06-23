@@ -24,15 +24,12 @@ class Dashboard extends Component {
 
 	componentDidMount() {
 
-		//console.log(this.props.getCurrentMacros(this.props.user.id));
-
 		axios.get(`/api/clients/macros/${this.props.user.id}`)
 			.then(res => {
 				this.setState({
 					macros: res.data
 				});
-			}
-		)
+			})
 
 	}
 
@@ -45,8 +42,8 @@ class Dashboard extends Component {
 		dashboardContent = (
 			<div className="row">
 
-				<div className="col-md-6">
-					<h3 className="text-center text-info">Nutrition</h3>
+				<div className="col-md-6 mx-auto">
+					<h3 className="text-center text-info">Daily Nutrition Goals</h3>
 
 					<div className="table-responsive">
 						<table className="table table-striped table-lg table-bordered table-dark padding-4">
@@ -87,7 +84,7 @@ class Dashboard extends Component {
 				</div>
 
 
-				<div className="col-md-6">
+				{/* <div className="col-md-6">
 					<h3 className="text-center text-info">Training</h3>
 
 					<div className="table-responsive">
@@ -106,87 +103,25 @@ class Dashboard extends Component {
 							</tbody>
 						</table>
 					</div>
-				</div>
-
+				</div> */}
 			</div>
 		);
 
 		return (
 			<div className="container">
-				{/* <section id="actions" className="py-4 mb-4 bg-light">
-					<div className="container">
-						<div className="row">
-							<div className="col-md-3">
-								<a href="#" className="btn btn-light btn-block">
-									<i className="fas fa-arrow-left"></i> Back to Dashboard
-										</a>
-							</div>
-							<div className="col-md-3">
-								<a href="#" className="btn btn-success btn-block">
-									<i className="fas fa-check"></i> Save Changes
-										</a>
-							</div>
-							<div className="col-md-3">
-								<a href="#" className="btn btn-danger btn-block">
-									<i className="fas fa-trash"></i> Delete Post
-										</a>
-							</div>
-						</div>
-					</div>
-				</section> */}
 
 				<div className="text-center mt-5">
-					<Link className="btn btn-primary" to={`/progress_add/`}>
-						<i className="fas fa-share-square fa-2x" aria-hidden="true"></i>
-						Send Progress Update
+					<Link to="/progress_add/">
+						<button className="btn btn-success mr-3 mb-3" style={{ "width": "10rem", "height": "10rem" }}>
+							Send Progress Update
+									<h4 className="display-4">
+								<i className="fa fa-share-square fa-2x"></i>
+							</h4>
+						</button>
 					</Link>
+					{dashboardContent}
 				</div>
 
-				{/* <section id="details">
-							<div className="container">
-								<div className="row">
-									<div className="col">
-										<div className="card">
-											<div className="card-header">
-												<h4>Edit Progress Update</h4>
-											</div>
-											<div className="card-body">
-												<form>
-													<div className="form-group">
-														<label for="title">Title</label>
-														<input type="text" className="form-control" value="Post One"/>
-													</div>
-													<div className="form-group">
-														<label for="category">Category</label>
-														<select className="form-control">
-															<option value="">Web Development</option>
-															<option value="">Tech Gadgets</option>
-															<option value="">Business</option>
-															<option value="">Health & Wellness</option>
-														</select>
-													</div>
-													<div className="form-group">
-														<label for="image">Upload Images</label>
-														<div className="custom-file">
-															<input type="file" className="custom-file-input" id="image" />
-															<label for="image" className="custom-file-label">Choose File</label>		
-														</div>
-														<small className="form-text text-muted">Max Size 3mb </small>
-													</div>
-													<div className="form-group">
-														<label for="body">Body</label>
-														<textarea name="editor1" className="form-control"></textarea>
-													</div>
-												</form>
-											</div>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</section> */}
-
-				{dashboardContent}
 			</div>
 		)
 	}

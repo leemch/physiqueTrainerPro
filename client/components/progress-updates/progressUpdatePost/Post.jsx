@@ -66,13 +66,18 @@ class Post extends Component {
 			postContent = <Spinner />
 		} else {
 			postContent = (
-				<div>
-					<h1 className="display-4 text-center"> Check In Date: {progressDate}</h1>
-					<h1 className="display-4 text-center"> Weigh in: {progressUpdate.weight}lbs</h1>
-					<PhotoSlides photos={photos} />
-					<ProgressDetails fat={this.state.fat} protein={this.state.protein} carbs={this.state.carbs} notes={progressUpdate.notes} />
-					<CommentForm postId={progressUpdate._id} />
-					<CommentFeed postId={progressUpdate._id} comments={progressUpdate.comments} />
+				<div className="mx-auto">
+					<div className="text-center">
+						<h1 className="display-4 text-center"> Check In Date: {progressDate}</h1>
+						<h1 className="display-4 text-center"> Weigh in: {progressUpdate.weight}lbs</h1>
+						<PhotoSlides photos={photos} />
+						<ProgressDetails fat={this.state.fat} protein={this.state.protein} carbs={this.state.carbs} notes={progressUpdate.notes} />
+					</div>
+
+					<div className="col-md-8 mx-auto mt-5">
+						<CommentForm postId={progressUpdate._id} />
+						<CommentFeed postId={progressUpdate._id} comments={progressUpdate.comments} />
+					</div>
 				</div>
 			)
 		}
@@ -83,21 +88,10 @@ class Post extends Component {
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-
-
-
 							<Link to={`/progress_feed/${progressUpdate.client}`} className="btn btn-light mb-3">
 								Back to Calendar
 							</Link>
-
-
 							{postContent}
-
-
-
-
-
-
 						</div>
 					</div>
 				</div>

@@ -166,7 +166,7 @@ class ProgressUpdateForm extends Component {
 									<InputGroup
 										placeholder="Weight"
 										name="weight"
-										icon="fas fa-weight"
+										icon="fa fa-weight"
 										value={this.state.weight}
 										onChange={this.onChange}
 										error={errors.weight}
@@ -174,7 +174,7 @@ class ProgressUpdateForm extends Component {
 									<InputGroup
 										placeholder="Protein"
 										name="protein"
-										icon="fas fa-utensils"
+										icon="fa fa-utensils"
 										value={this.state.protein}
 										onChange={this.onChange}
 										error={errors.protein}
@@ -182,7 +182,7 @@ class ProgressUpdateForm extends Component {
 									<InputGroup
 										placeholder="Fat"
 										name="fat"
-										icon="fas fa-utensils"
+										icon="fa fa-utensils"
 										value={this.state.fat}
 										onChange={this.onChange}
 										error={errors.fat}
@@ -190,7 +190,7 @@ class ProgressUpdateForm extends Component {
 									<InputGroup
 										placeholder="Carbohydrates"
 										name="carbs"
-										icon="fas fa-utensils"
+										icon="fa fa-utensils"
 										value={this.state.carbs}
 										onChange={this.onChange}
 										error={errors.carbs}
@@ -198,10 +198,7 @@ class ProgressUpdateForm extends Component {
 
 									<TextAreaFieldGroup placeholder="Notes" name="notes" value={this.state.notes} onChange={this.onChange} error={errors.notes}
 										info="Tell your trainer some details about this progress update." />
-
 								</div>
-
-
 
 								<input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
 							</form>

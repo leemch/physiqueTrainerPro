@@ -31,7 +31,7 @@ class CommentItem extends Component {
                 </div>
                 {comment.user === auth.user.id ? (
 						<button onClick={this.onDeleteClick.bind(this, postId, comment._id)} type="button" className="btn btn-danger mr-1">
-							<i className="fas fa-times" />
+							<i className="fa fa-times" /> Delete
 						</button>
 					) : null}
               </div>

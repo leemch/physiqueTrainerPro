@@ -43,17 +43,27 @@ class Profile extends Component {
 					</div>
 					<ProfileHeader profile={profile} />
 
-					<div className="text-center">
-						<Link className="btn btn-dark btn-lg" to={`/client_login/${profile.user._id}`}>
-							Client Log in
+					<div className="text-center mb-3 mt-2">
+						<Link to={`/client_login/${profile.user._id}`}>
+							<button className="btn btn-info mr-3" style={{ "width": "10rem", "height": "10rem" }}>
+								Client Log in
+									<h4 className="display-4">
+									<i className="fa fa-sign-in"></i>
+								</h4>
+							</button>
 						</Link>
-						<Link className="btn btn-dark btn-lg" to={`/client_register/${profile.handle}`}>
-							Sign up with this trainer
+						<Link to={`/client_register/${profile.handle}`}>
+							<button className="btn btn-info mr-3" style={{ "width": "10rem", "height": "10rem" }}>
+								Sign up with this trainer
+									<h4 className="display-4">
+									<i className="fa fa-users"></i>
+								</h4>
+							</button>
 						</Link>
 					</div>
 
 					<ProfileAbout profile={profile} />
-					<ProfileCreds education={profile.education} experience={profile.experience} />
+					{/* <ProfileCreds education={profile.education} experience={profile.experience} /> */}
 
 				</div>
 			)
